@@ -55,15 +55,15 @@
                             <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                 <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">{{ $item->app_url }}</a>
                             </td>
-                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{{ $item->app_password }}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap "> <button class="bg-transparent text-gray-900 font-semibold  py-1 px-3 border border-gray-900 rounded" onclick="passwordCopy('{{ $item->app_password }}')">
+                                Copiar
+                            </button></td>
 
                            
                             
                             <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
                                 
-                                <button class="bg-transparent text-gray-900 font-semibold  py-1 px-3 border border-gray-900 rounded"><a href="{{ url('/information/' . $item->id . '/edit') }}">
-                                    Copiar
-                                </a></button>
+                               
                                 
                                 <button class="bg-transparent text-gray-900 font-semibold  py-1 px-3 border border-gray-900 rounded"><a href="{{ url('/information/' . $item->id . '/edit') }}">
                                 Editar

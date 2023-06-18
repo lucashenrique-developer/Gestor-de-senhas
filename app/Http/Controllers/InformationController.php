@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Profile;
 use App\Models\Information;
 use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
 
 class InformationController extends Controller
 {
@@ -16,7 +17,8 @@ class InformationController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $informations = Information::where('id_user', $user_id)->get();
+        $informations = Information::where('user_id', $user_id)->get();
+    
         return view('informations/index')->with('informations', $informations);
     }
 
@@ -35,17 +37,20 @@ class InformationController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        $input['app_password'] = Crypt::encrypt($request->input('app_password'));
+    
         Information::create($input);
-        return redirect('/')->with('flash_message', 'information Added!');
+    
+        return redirect('/information')->with('flash_message', 'Information Added!');
     }
+    
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $information = information::find($id);
-        return view('informations/show')->with('informations', $information);
+        //
     }
 
     /**
@@ -53,7 +58,9 @@ class InformationController extends Controller
      */
     public function edit(string $id)
     {
-        $information = information::find($id);
+        $information = Information::find($id);
+            $information->app_password = Crypt::decrypt($information->app_password);
+        
         return view('informations/edit')->with('informations', $information);
     }
 
@@ -62,10 +69,13 @@ class InformationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $information = information::find($id);
+        $information = Information::find($id);
         $input = $request->all();
-        $Informatio->update($input);
-        return redirect('/Information')->with('flash_message', 'Senha atualizada!');
+        
+        $input['app_password'] = Crypt::encrypt($request->input('app_password'));
+
+        $information->update($input);
+        return redirect('/information')->with('flash_message', 'Senha atualizada!');
     }
 
     /**
@@ -74,6 +84,6 @@ class InformationController extends Controller
     public function destroy(string $id)
     {
         Information::destroy($id);
-        return redirect('/Information')->with('flash_message', 'Aplicação Deletada!');
+        return redirect('/information')->with('flash_message', 'Aplicação Deletada!');
     }
 }

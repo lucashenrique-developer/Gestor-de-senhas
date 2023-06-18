@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Information extends Model
 {
     use HasFactory;
-    protected $table = 'passwords';
+    protected $table = 'informations';
     protected $primarykey = 'id';
-    protected $fillable = ['user_name', 'id_user', 'app_name','app_url', 'app_password'];
+    protected $fillable = ['user_name', 'user_id', 'app_name', 'app_url', 'app_password'];
 }
