@@ -21,31 +21,31 @@
     <div class="overflow-x-auto shadow-md sm:rounded-lg">
         <div class="inline-block min-w-full align-middle">
             <div class="overflow-hidden ">
-                <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700 text-center">
                     <thead class="bg-gray-100 dark:bg-gray-700 ">
                         <tr>
-                            <th scope="col" class="p-4 h-4  py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                            <th scope="col" class="p-4 h-4  py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400 text-center">
                                 #
-                             </th>
+                            </th>
  
-                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400 text-center">
                                 Nome de usuário
                             </th>
-                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400 text-center">
                                 Aplicação
                             </th>
-                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400 text-center">
                                 URL
                             </th>
-                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400 text-center">
                                 Senha
                             </th>
-                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400 text-center">
                                 Opções
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700 text-center">
                         @foreach ($informations as $item)
                         <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                             <td class="p-4 py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ $loop->iteration }}</td>
@@ -55,7 +55,7 @@
                             <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                 <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">{{ $item->app_url }}</a>
                             </td>
-                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap "> <button class="bg-transparent text-gray-900 font-semibold  py-1 px-3 border border-gray-900 rounded" onclick="passwordCopy('{{ $item->app_password }}')">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap "> <button class="bg-transparent text-gray-900 font-semibold  py-1 px-3 border border-gray-900 rounded" onclick="passwordCopy('{{  Crypt::decrypt($item->app_password) }}')">
                                 Copiar
                             </button></td>
 
@@ -72,7 +72,7 @@
                             <form action="{{ url('information/' .$item->id) }}" method="POST" style="display:inline;">
                                 {{ method_field('DELETE') }}
                                  {{ csrf_field() }}
-                                 <button type="submit" class="bg-transparent text-gray-900 font-semibold  py-1 px-3 border border-gray-900 rounded" title="Delete Aplication" onclick="return confirm('Confirm Delete?')">Deletar</button> </td>
+                                 <button type="submit" class="bg-transparent text-gray-900 font-semibold  py-1 px-3 border border-gray-900 rounded" title="Delete Aplication" onclick="return confirm('Deseja deletar?')">Deletar</button> </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -81,5 +81,7 @@
         </div>
     </div>
 </div>
+
+
 
 </x-app-layout>
