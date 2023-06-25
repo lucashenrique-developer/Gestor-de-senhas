@@ -36,3 +36,5 @@ Route::resource('/information', InformationController::class);
 Route::get('/documentation', function () {
     return view('documentation');
 });
+
+Route::redirect('dashboard', '/information');
